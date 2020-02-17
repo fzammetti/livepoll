@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+
+    <title>LivePoll</title>
+
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <link rel="stylesheet" href="jq/jquery-mobile-131-min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <script type="text/javascript" src="jq/jquery-191-min.js"></script>
+    <script type="text/javascript" src="appCore.js"></script>
+    <script type="text/javascript" src="jq/jquery-mobile-131-min.js"></script>
+
+  </head>
+  <body>
+
+
+    <!-- ========================================================================================================== -->
+    <!-- HOME PAGE                                                                                                  -->
+    <!-- ========================================================================================================== -->
+    <div data-role="page" id="homePage" data-dom-cache="true">
+
+      <script>
+        $(document).delegate("#homePage", "pageshow", appCore.homePageShow);
+      </script>
+
+      <!-- Create Poll panel. -->
+      <div data-role="panel" data-position="right" data-display="overlay"
+        id="createPollPanel" data-dom-cache="true">
+        <div class="ui-loader-background"></div>
+        <h2>Create A Poll</h2>
+        <div>
+          <form name="createPollForm" id="createPollForm">
+            <label for="newPollAdminKey">Admin Key</label>
+            <input type="text" name="adminKey" id="newPollAdminKey" data-clear-btn="true">
+            <label for="newPollTitle">Title</label>
+            <input type="text" name="title" id="newPollTitle" data-clear-btn="true">
+            <label for="newPollQuestion">Question</label>
+            <input type="text" name="question" id="newPollQuestion" data-clear-btn="true">
+            <label for="newPollResponse1">Response 1</label>
+            <input type="text" name="response1" id="newPollResponse1" data-clear-btn="true">
+            <label for="newPollResponse2">Response 2</label>
+            <input type="text" name="response2" id="newPollResponse2" data-clear-btn="true">
+            <label for="newPollResponse3">Response 3</label>
+            <input type="text" name="response3" id="newPollResponse3" data-clear-btn="true">
+            <label for="newPollResponse4">Response 4</label>
+            <input type="text" name="response4" id="newPollResponse4" data-clear-btn="true">
+          </form>
+          <button onClick="appCore.createPoll();" data-theme="e">Create</button>
+        </div>
+      </div>
+
+      <!-- Header. -->
+      <div data-role="header" data-position="fixed">
+        <div class="ui-loader-background"></div>
+        <button data-icon="home" disabled="disabled">Home</button>
+        <h1>Poll List</h1>
+        <a href="#createPollPanel" data-icon="plus" data-theme="b">Create A Poll</a>
+      </div>
+
+      <!-- Page content. -->
+      <div data-role="content">
+        <div class="ui-loader-background"></div>
+        <ul data-role="listview" data-inset="true" id="pollListUL"></ul>
+      </div>
+
+      <!-- Footer. -->
+      <div data-role="footer" data-position="fixed">
+        <div class="ui-loader-background"></div>
+        <div data-role="navbar" style="height:58px;">
+          <ul>
+            <li><div>&nbsp;</div></li>
+            <li><div>&nbsp;</div></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================================================================================== -->
+    <!-- RESPOND TO POLL PAGE                                                                                       -->
+    <!-- ========================================================================================================== -->
+    <div data-role="page" id="respondToPollPage" data-dom-cache="true">
+
+      <script>$(document).delegate("#respondToPollPage", "pageshow", appCore.respondToPollPageShow);</script>
+
+      <!-- Header. -->
+      <div data-role="header" data-position="fixed">
+        <div class="ui-loader-background"></div>
+        <a href="#homePage" data-icon="home" data-theme="b">Home</a>
+        <h1>Respond To Poll</h1>
+      </div>
+
+      <!-- Page content. -->
+      <div data-role="content">
+        <div class="ui-loader-background"></div>
+        <b>Question</b><div id="respondToPollQuestion"></div>
+        <br>
+        <form name="respondToPollForm" id="respondToPollForm">
+          <input type="radio" name="response" id="respondResponse1" value="0" />
+          <label for="respondResponse1" id="respondResponse1Label">fwz</label>
+          <input type="radio" name="response" id="respondResponse2" value="1" />
+          <label for="respondResponse2" id="respondResponse2Label"></label>
+          <input type="radio" name="response" id="respondResponse3" value="2" />
+          <label for="respondResponse3" id="respondResponse3Label"></label>
+          <input type="radio" name="response" id="respondResponse4" value="3" />
+          <label for="respondResponse4" id="respondResponse4Label"></label>
+        </form>
+        <button onClick="appCore.respondToPoll();" data-theme="e">Respond</button>
+      </div>
+
+      <!-- Footer. -->
+      <div data-role="footer" data-position="fixed">
+        <div class="ui-loader-background"></div>
+        <div data-role="navbar" style="height:58px;">
+          <ul>
+            <li><a href="javascript:void(0)" class="cssNavRespondToPollPage ui-btn-active ui-state-persist"
+              data-icon="check">Respond To Poll</a></li>
+            <li><a href="#viewPollPage" data-icon="info">View Poll</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================================================================================== -->
+    <!-- VIEW POLL PAGE                                                                                             -->
+    <!-- ========================================================================================================== -->
+    <div data-role="page" id="viewPollPage" data-dom-cache="true">
+
+      <script>$(document).delegate("#viewPollPage", "pageshow", appCore.viewPollPageShow);</script>
+
+      <!-- Poll Control panel. -->
+      <div data-role="panel" data-position="right" data-display="overlay"
+        id="pollControlPanel" data-dom-cache="true">
+        <div class="ui-loader-background"></div>
+        <h2>Poll Control</h2>
+        <label for="pollControlAdminKey">Admin Key</label>
+        <input type="text" id="pollControlAdminKey" data-clear-btn="true">
+        <button data-theme="e" onClick="appCore.openPoll();">Open Poll</button>
+        <button data-theme="e" onClick="appCore.closePoll();">Close Poll</button>
+      </div>
+
+      <!-- Header. -->
+      <div data-role="header" data-position="fixed">
+        <div class="ui-loader-background"></div>
+        <a href="#homePage" data-icon="home" data-theme="b">Home</a>
+        <h1>View Poll Result</h1>
+        <a href="#pollControlPanel" data-icon="bars" data-theme="b">Poll Control</a>
+      </div>
+
+      <!-- Page content. -->
+      <div data-role="content">
+        <div class="ui-loader-background"></div>
+        <b>Question</b>
+        <div id="viewPollQuestion"></div>
+        <br>
+        <b>Current Status</b>
+        <div id="viewPollStatus"></div>
+        <br>
+        <div id="viewPollResponse1" class="cssPollViewResponse"></div>
+        <div id="viewPollResponse1Bar" class="cssPollViewBar cssPollViewBar1"></div>
+        <div id="viewPollResponse2" class="cssPollViewResponse"></div>
+        <div id="viewPollResponse2Bar" class="cssPollViewBar cssPollViewBar2"></div>
+        <div id="viewPollResponse3" class="cssPollViewResponse"></div>
+        <div id="viewPollResponse3Bar" class="cssPollViewBar cssPollViewBar3"></div>
+        <div id="viewPollResponse4" class="cssPollViewResponse"></div>
+        <div id="viewPollResponse4Bar" class="cssPollViewBar cssPollViewBar4"></div>
+      </div>
+
+      <!-- Footer. -->
+      <div data-role="footer" data-position="fixed">
+        <div class="ui-loader-background"></div>
+        <div data-role="navbar" style="height:58px;">
+          <ul>
+            <li><a href="javascript:appCore.respondToPollClicked()" data-icon="check">Respond To Poll</a></li>
+            <li><a href="javascript:void(0)" class="cssNavViewPollPage ui-btn-active ui-state-persist"
+              data-icon="info">View Poll</a></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ========================================================================================================== -->
+    <!-- INFO DIALOG - Generic shared user info dialog                                                              -->
+    <!-- ========================================================================================================== -->
+    <div data-role="dialog" id="infoDialog" data-close-btn="none" data-dom-cache="true">
+      <div data-role="header">
+        <h1 id="infoDialogHeader"></h1>
+      </div>
+      <div data-role="content" id="infoDialogContent"></div>
+      <div data-role="footer" class="cssInfoDialogButtons">
+        <a href="javascript:void(0);" onClick="if(appCore.infoDialogCallback){appCore.infoDialogCallback();}"
+          data-rel="back" data-role="button">Ok</a>
+      </div>
+    </div>
+
+
+    <!-- ========================================================================================================== -->
+    <!-- Confirmation dialog for confirming response submission                                                     -->
+    <!-- ========================================================================================================== -->
+    <div data-role="dialog" id="confirmResponse">
+      <div data-role="content">
+        <p>Are you sure you want to submit your response now?<br><br>
+          Note that you WILL NOT be able to change your response later.</p>
+        <a href="#" id="confirmResponseYes" data-role="button" data-theme="b" data-rel="back">Yes</a>
+        <a href="#" data-role="button" data-theme="c" data-rel="back">No</a>
+      </div>
+    </div>
+
+  </body>
+</html>
