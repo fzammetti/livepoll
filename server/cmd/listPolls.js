@@ -8,17 +8,12 @@
  */
 function process(req, resp, params) {
 
-  // Create an array of objects based on the current polls in memory.
-  // These are trimmed-down objects since while passing back the poll objects themselves would work, it's more than
-  // the UI needs at this point.
+  // Create an array of objects based on the current polls in memory.  These are trimmed-down objects since while
+  // passing back the poll objects themselves would work, it's more than the UI needs at this point.
   const pollsOut = [ ];
   for (let pollID in polls) {
     const poll = polls[pollID];
-    pollsOut.push({
-      id : poll.id,
-      title : poll.title,
-      status : poll.status
-    });
+    pollsOut.push({ id : poll.id, title : poll.title, status : poll.status });
   }
   completeResponse(resp, JSON.stringify(pollsOut));
 

@@ -46,14 +46,13 @@ const appCore = {
     $.mobile.loader.prototype.options.text = "...Contacting Server...";
     $.mobile.loader.prototype.options.textVisible = true;
 
-    // Generate a GUID for this client.  While there doesn't seem to be a way
-    // to generate a GUARANTEED unique value client-side, this should come close
-    // enough for our purposes here.
+    // Generate a GUID for this client.  While there doesn't seem to be a way to generate a GUARANTEED unique value
+    // client-side, this should come close enough for our purposes here.
     if (!window.localStorage.getItem("clientID")) {
       window.localStorage.setItem("clientID",
         "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
-            const r = Math.random()*16|0, v = c == "x" ? r : (r&0x3|0x8);
-            return v.toString(16);
+          const r = Math.random()*16|0, v = c == "x" ? r : (r&0x3|0x8);
+          return v.toString(16);
         })
       );
     }
@@ -322,9 +321,7 @@ const appCore = {
       $.mobile.loading("hide");
       if (inResponse == "not_admin") {
         $("#infoDialogHeader").html("Nice Try");
-        $("#infoDialogContent").html(
-          "You are not an admin and cannot perform this function"
-        );
+        $("#infoDialogContent").html("You are not an admin and cannot perform this function");
         $.mobile.changePage($("#infoDialog"), { role : "dialog" });
       } else {
         $("#infoDialogHeader").html("Success");
@@ -334,9 +331,7 @@ const appCore = {
 
       if (inResponse == "not_admin") {
         $("#infoDialogHeader").html("Nice Try");
-        $("#infoDialogContent").html(
-          "You are not an admin and cannot perform this function"
-        );
+        $("#infoDialogContent").html("You are not an admin and cannot perform this function");
         $.mobile.changePage($("#infoDialog"), { role : "dialog" });
       } else {
         $.mobile.loading("hide");

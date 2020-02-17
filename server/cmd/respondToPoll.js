@@ -7,8 +7,7 @@
  */
 function process(req, resp, params) {
 
-  // First, make sure the caller hasn't already responded to this poll and
-  // abort if they have.
+  // First, make sure the caller hasn't already responded to this poll and abort if they have.
   const poll = polls["poll_" + params.id];
   if (poll.respondents[params.clientID]) {
     completeResponse(resp, "already_responded");

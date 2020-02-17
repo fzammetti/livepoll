@@ -13,12 +13,11 @@ function process(req, resp, params) {
     return;
   }
 
-  // Create a new poll object and store it.  There's nothing to return to theUI at this point.
-  // The list of polls will be refresh after this.
+  // Create a new poll object and store it.  There's nothing to return to the UI at this point.  The list of polls will
+  // be refresh after this.
   const id = new Date().getTime();
   polls["poll_" + id] = {
-    id : id, status : "Closed",
-    title : params.title, question : params.question,
+    id : id, status : "Closed", title : params.title, question : params.question,
     responses : [
       { text : params.response1, count : 0 },
       { text : params.response2, count : 0 },
